@@ -1,31 +1,15 @@
 class ApplicationController < ActionController::API
+  include ActionController::Cookies
+  include ActionController::RequestForgeryProtection
+
+  protect_from_forgery with: :exception
+
+  skip_before_action :verify_authenticity_token
   before_action :authorized
 
-  def encode_token(payload)
-    # Put secret in .env file when deploying
-    JWT.encode(payload, 'ttp-fs-S3cr3t')
-  end
-
-  def auth_header
-    # { Authorization: 'Bearer <token>' }
-    request.headers['Authorization']
-  end
-
-  def decoded_token
-    if auth_header
-      token = auth_header.split(' ')[1]
-      begin
-        JWT.decode(token, 'ttp-fs-S3cr3t')
-      rescue JWT::DecodeError
-        nil
-      end
-    end
-  end
-
   def current_user
-    if decoded_token
-      user_id = decoded_token[0]['user_id']
-      @user = User.find_by(id: user_id)
+    if session[:user_id]
+      @current_user = User.find(session[:user_id])
     end
   end
 
@@ -35,6 +19,6 @@ class ApplicationController < ActionController::API
   end
 
   def authorized
-    render json: { error: 'Please log in' }, status: :authorized unless logged_in?
+    render json: { error: 'Please log in' }, status: :unauthorized unless logged_in?
   end
 end

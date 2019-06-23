@@ -1,16 +1,19 @@
-class Api::V1::AuthController < ApplicationController
-  # Don't need to be authorized to log in
+class Api::V1::SessionsController < ApplicationController
   skip_before_action :authorized, only: %[create]
 
   def create
     @user = User.find_by(email: user_login_params[:email])
-    # If user exists, authenticate and return jwt token
     if @user && @user.authenticate(user_login_params[:password])
-      token = encode_token({ user_id: @user.id })
-      render json: { user: UserSerializer.new(@user), jwt: token }, status: :accepted
+      session[:user_id] = @user.id
+      render json: { user: UserSerializer.new(@user), logged_in: true }, status: :accepted
     else
       render json: { error: 'Invalid email or password' }, status: :unauthorized
     end
+  end
+
+  def destroy
+    reset_session
+    render json: { logged_in: false }, status: :accepted
   end
 
   private
