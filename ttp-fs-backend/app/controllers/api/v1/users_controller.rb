@@ -13,7 +13,10 @@ class Api::V1::UsersController < ApplicationController
   end
 
   private
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of ef62d32... added login logic in auth controller
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password)
   end
