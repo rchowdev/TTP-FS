@@ -42,8 +42,10 @@ function App({ history }) {
   return (
     <div>
       <Navbar
+        user={user}
         activeNavItem={activeNavItem}
         setActiveNavItem={setActiveNavItem}
+        handleLogout={handleLogout}
       />
       <Switch>
         <Route
@@ -54,7 +56,7 @@ function App({ history }) {
               ? <Dashboard
                   {...props}
                   user={user}
-                  handleLogout={handleLogout}
+                  activeNavItem={activeNavItem}
                 />
               : <Redirect to='/' />
           )}
