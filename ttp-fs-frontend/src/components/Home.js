@@ -2,7 +2,7 @@ import React from 'react';
 import SignUp from './auth/SignUp';
 import Login from './auth/Login';
 
-const Home = ({ handleLogin, history }) => {
+const Home = ({ handleLogin, history, activeNavItem }) => {
   const handleSuccessfulAuth = (userData) => {
     handleLogin(userData);
     history.push("/dashboard");
@@ -10,9 +10,12 @@ const Home = ({ handleLogin, history }) => {
 
   return (
     <div>
-      <h1>Home</h1>
-      <SignUp handleSuccessfulAuth={handleSuccessfulAuth} />
-      <Login handleSuccessfulAuth={handleSuccessfulAuth} />
+      <h1>{activeNavItem === 'sign-up' ? "Sign Up" : "Log In"}</h1>
+      {
+        activeNavItem === 'sign-up'
+          ? <SignUp handleSuccessfulAuth={handleSuccessfulAuth} />
+          : <Login handleSuccessfulAuth={handleSuccessfulAuth} />
+      }
     </div>
   );
 }

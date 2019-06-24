@@ -4,10 +4,13 @@ import axios from 'axios';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
+import Navbar from './components/layout/Navbar';
 
 function App({ history }) {
   //Hooks
   const [user, setUser] = useState({});
+  const [activeNavItem, setActiveNavItem] = useState("");
+
   //App Did Mount: Check if user is logged in
   useEffect(() => {
     function checkLoginStatus(){
@@ -37,32 +40,39 @@ function App({ history }) {
 
 
   return (
-    <Switch>
-      <Route
-        exact
-        path={"/dashboard"}
-        render={props => (
-          user.email
-            ? <Dashboard
-                {...props}
-                user={user}
-                handleLogout={handleLogout}
-              />
-            : <Redirect to='/' />
-        )}
+    <div>
+      <Navbar
+        activeNavItem={activeNavItem}
+        setActiveNavItem={setActiveNavItem}
       />
-      <Route
-        exact
-        path={"/"}
-        render={props => (
-          <Home
-          {...props}
-          handleLogin={handleLogin}
-          />
-        )}
-      />
-      <Route component={NotFound} />
-    </Switch>
+      <Switch>
+        <Route
+          exact
+          path={"/dashboard"}
+          render={props => (
+            user.email
+              ? <Dashboard
+                  {...props}
+                  user={user}
+                  handleLogout={handleLogout}
+                />
+              : <Redirect to='/' />
+          )}
+        />
+        <Route
+          exact
+          path={"/"}
+          render={props => (
+            <Home
+              {...props}
+              handleLogin={handleLogin}
+              activeNavItem={activeNavItem}
+            />
+          )}
+        />
+        <Route component={NotFound} />
+      </Switch>
+    </div>
   );
 }
 
