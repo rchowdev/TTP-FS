@@ -8,7 +8,7 @@ const Dashboard = ({ handleLogout, history, activeNavItem }) => {
     <div>
       <h1>Dashboard</h1>
       {
-        activeNavItem === 'portfolio'
+        activeNavItem === "portfolio"
         ? <Portfolio />
         : <TransactionsList />
       }

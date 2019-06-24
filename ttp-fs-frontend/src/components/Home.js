@@ -10,9 +10,9 @@ const Home = ({ handleLogin, history, activeNavItem }) => {
 
   return (
     <div>
-      <h1>{activeNavItem === 'sign-up' ? "Sign Up" : "Log In"}</h1>
+      <h1>{activeNavItem === "sign-up" ? "Sign Up" : "Log In"}</h1>
       {
-        activeNavItem === 'sign-up'
+        activeNavItem === "sign-up"
           ? <SignUp handleSuccessfulAuth={handleSuccessfulAuth} />
           : <Login handleSuccessfulAuth={handleSuccessfulAuth} />
       }

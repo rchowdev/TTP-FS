@@ -24,8 +24,8 @@ const Login = ({ handleSuccessfulAuth }) => {
       .catch(err => console.log(err));
 
     //Reset input fields
-    setEmail('');
-    setPassword('');
+    setEmail("");
+    setPassword("");
   };
 
   return (

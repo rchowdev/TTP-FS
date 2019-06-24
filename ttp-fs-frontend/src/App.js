@@ -18,6 +18,7 @@ function App({ history }) {
       .then(res => {
         if (res.data.user) {
           setUser(res.data.user);
+          setActiveNavItem("portfolio");
           history.push("/dashboard");
         } else {
           setUser({});
@@ -32,10 +33,12 @@ function App({ history }) {
   //Auth handlers
   const handleLogin = (userData) => {
     setUser(userData);
+    setActiveNavItem("portfolio");
   }
 
   const handleLogout = () => {
     setUser({});
+    setActiveNavItem("");
   }
 
 
@@ -58,7 +61,7 @@ function App({ history }) {
                   user={user}
                   activeNavItem={activeNavItem}
                 />
-              : <Redirect to='/' />
+              : <Redirect to="/" />
           )}
         />
         <Route

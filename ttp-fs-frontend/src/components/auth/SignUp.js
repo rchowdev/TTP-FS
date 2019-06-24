@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const SignUp = ({ handleSuccessfulAuth }) => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -27,11 +27,10 @@ const SignUp = ({ handleSuccessfulAuth }) => {
       })
       .catch(err => console.log(err));
 
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setPassword('');
-    console.log("Form Submitted");
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setPassword("");
   };
 
   return (
