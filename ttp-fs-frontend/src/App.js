@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Switch, Route, withRouter } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import axios from 'axios';
 import Home from './components/Home';
 import Dashboard from './components/Dashboard';
 import NotFound from './components/NotFound';
 
-function App(props) {
+function App({ history }) {
   //Hooks
   const [user, setUser] = useState({});
+  //App Did Mount: Check if user is logged in
   useEffect(() => {
+    function checkLoginStatus(){
+      axios.get("http://localhost:3001/api/v1/logged_in", { withCredentials: true })
+      .then(res => {
+        if (res.data.user) {
+          setUser(res.data.user);
+          history.push("/dashboard");
+        } else {
+          setUser({});
+        }
+      })
+      .catch(err => console.log(err));
+    };
+
     checkLoginStatus();
-  }, []);
+  }, [history]);
 
   //Auth handlers
   const handleLogin = (userData) => {
@@ -21,18 +35,6 @@ function App(props) {
     setUser({});
   }
 
-  function checkLoginStatus(){
-    axios.get("http://localhost:3001/api/v1/logged_in", { withCredentials: true })
-      .then(res => {
-        if (res.data.user) {
-          setUser(res.data.user);
-          props.history.push("/dashboard");
-        } else {
-          setUser({});
-        }
-      })
-      .catch(err => console.log(err));
-  }
 
   return (
     <Switch>
@@ -40,7 +42,13 @@ function App(props) {
         exact
         path={"/dashboard"}
         render={props => (
-          <Dashboard {...props} user={user} />
+          user.email
+            ? <Dashboard
+                {...props}
+                user={user}
+                handleLogout={handleLogout}
+              />
+            : <Redirect to='/' />
         )}
       />
       <Route
@@ -50,7 +58,6 @@ function App(props) {
           <Home
           {...props}
           handleLogin={handleLogin}
-          handleLogout={handleLogout}
           />
         )}
       />

@@ -18,6 +18,7 @@ const SignUp = ({ handleSuccessfulAuth }) => {
       }
     };
 
+    //Send post request to sign up(create new user)
     axios.post("http://localhost:3001/api/v1/users", signUpData, { withCredentials: true }) // Tells API it's ok to set cookie in our client
       .then(res => {
         if(res.data.user){
@@ -31,7 +32,7 @@ const SignUp = ({ handleSuccessfulAuth }) => {
     setEmail('');
     setPassword('');
     console.log("Form Submitted");
-  }
+  };
 
   return (
     <form onSubmit={handleSubmit}>
