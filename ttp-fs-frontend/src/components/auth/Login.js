@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const SignUp = ({ handleSuccessfulAuth }) => {
+const Login = ({ handleSuccessfulAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -13,7 +13,7 @@ const SignUp = ({ handleSuccessfulAuth }) => {
         password
       }
     };
-    
+
     //Send post request to login
     axios.post("http://localhost:3001/api/v1/login", logInData, { withCredentials: true }) // Tells API it's ok to set cookie in our client
       .then(res => {
@@ -52,4 +52,4 @@ const SignUp = ({ handleSuccessfulAuth }) => {
   );
 }
 
-export default SignUp;
+export default Login;
