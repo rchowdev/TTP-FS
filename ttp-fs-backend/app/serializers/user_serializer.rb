@@ -1,3 +1,9 @@
 class UserSerializer < ActiveModel::Serializer
-  attributes :first_name, :last_name, :email
+  include ActionView::Helpers::NumberHelper
+
+  attributes :first_name, :last_name, :email, :formatted_balance
+
+  def formatted_balance
+    number_to_currency(self.object.balance)
+  end
 end

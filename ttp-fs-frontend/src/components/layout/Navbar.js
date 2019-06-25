@@ -43,12 +43,15 @@ const Navbar = ({ user, activeNavItem, setActiveNavItem, handleLogout, history }
   };
 
   return (
-      <Menu borderless={!user.email}>
+      <Menu borderless={!user.email} inverted>
         {
           user.email
             ? (<Menu.Menu position="left">
                 <Menu.Item header>
                   {`Welcome, ${user.first_name}!`}
+                </Menu.Item>
+                <Menu.Item header active color="green">
+                  {`Balance: ${user.formatted_balance}`}
                 </Menu.Item>
               </Menu.Menu>)
             : null
