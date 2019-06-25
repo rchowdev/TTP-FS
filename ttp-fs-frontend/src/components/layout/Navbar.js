@@ -22,21 +22,21 @@ const Navbar = ({ user, activeNavItem, setActiveNavItem, handleLogout, history }
       user.email
         ? (<React.Fragment>
             <Menu.Item name="portfolio" active={activeNavItem === "portfolio"} onClick={handleItemClick}>
-              Portfolio
+              My Portfolio
             </Menu.Item>
             <Menu.Item name="transactions" active={activeNavItem === "transactions"} onClick={handleItemClick}>
-              Transactions
+              My Transactions
             </Menu.Item>
             <Menu.Item name="log-out">
-              <Button secondary onClick={handleLogoutClick}>Log Out</Button>
+              <Button inverted onClick={handleLogoutClick}>Log Out</Button>
             </Menu.Item>
           </React.Fragment>)
         : (<React.Fragment>
             <Menu.Item>
-              <Button primary name="log-in" onClick={handleItemClick}>Log In</Button>
+              <Button inverted color="green" name="log-in" onClick={handleItemClick}>Log In</Button>
             </Menu.Item>
             <Menu.Item>
-              <Button secondary name="sign-up" onClick={handleItemClick}>Sign Up</Button>
+              <Button inverted name="sign-up" onClick={handleItemClick}>Sign Up</Button>
             </Menu.Item>
           </React.Fragment>)
     );
