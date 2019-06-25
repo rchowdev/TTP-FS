@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { Menu, Button } from 'semantic-ui-react';
 import axios from 'axios';
 
-const Navbar = ({ user, activeNavItem, setActiveNavItem, handleLogout, history }) => {
+const Navbar = ({ user, activeNavItem, setActiveNavItem, handleLogout, history, match }) => {
   const handleItemClick = (e, { name }) => {
     setActiveNavItem(name);
   };

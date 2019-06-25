@@ -19,7 +19,7 @@ function App({ history }) {
         if (res.data.user) {
           setUser(res.data.user);
           setActiveNavItem("portfolio");
-          history.push("/dashboard");
+          history.push("/user");
         } else {
           setUser({});
         }
@@ -53,7 +53,7 @@ function App({ history }) {
       <Switch>
         <Route
           exact
-          path={"/dashboard"}
+          path={"/user"}
           render={props => (
             user.email
               ? <Dashboard

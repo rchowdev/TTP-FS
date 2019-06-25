@@ -5,7 +5,7 @@ import Login from './auth/Login';
 const Home = ({ handleLogin, history, activeNavItem }) => {
   const handleSuccessfulAuth = (userData) => {
     handleLogin(userData);
-    history.push("/dashboard");
+    history.push("/user");
   };
 
   return (
