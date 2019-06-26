@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import currency from 'currency.js';
 import { Form, Grid, Button, Message } from 'semantic-ui-react';
 
 const BuyMenu = ({ formatted_balance }) => {
@@ -19,14 +20,14 @@ const BuyMenu = ({ formatted_balance }) => {
 
   //If we have enough money return new balance else return negative number
   function newBalance(stockPrice) {
-    const total = Number((stockPrice * quantity).toFixed(2)); //Round total to 2nd decimal place
-    const userBalance = Number(formatted_balance.replace(/[^0-9.-]+/g,"")); //Remove non-periods/non-digits
-    return userBalance > total ? userBalance - total : -1;
+    const total = currency(stockPrice) * quantity;
+    const userBalance = currency(formatted_balance);
+    return userBalance > total ? userBalance.subtract(total).value : -1;
   };
 
   //Fetch request to API to patch user's balance and find or create stock
   function buyStock(orderData) {
-    return axios.patch("http://localhost:3001/api/v1/buy", { withCredentials: true })
+    return axios.patch("http://localhost:3001/api/v1/buy", orderData, { withCredentials: true })
       .then(res => console.log(res))
       .catch(err => console.log(err));
   };
@@ -42,9 +43,11 @@ const BuyMenu = ({ formatted_balance }) => {
       const balance = newBalance(lastSalePrice);
       if(balance >= 0){ //Had enough money
         const orderData = {
-          symbol,
-          quantity,
-          balance
+          orderData: {
+            symbol,
+            quantity,
+            balance
+          }
         };
         buyStock(orderData) //Set user and set success to true
           .then(data => {
