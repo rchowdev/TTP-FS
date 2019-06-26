@@ -10,7 +10,7 @@ const Portfolio = ({ user, setUser }) => {
   //Set user's stocks
   useEffect(() => {
     axios.get("http://localhost:3001/api/v1/stocks", { withCredentials: true })
-      .then(res => setStocks(res.data.sort(stock => stock.quantity)))
+      .then(res => setStocks(res.data.sort((a,b) => b.quantity - a.quantity)))
       .catch(err => console.log(err));
   }, []);
 
