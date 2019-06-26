@@ -6,7 +6,6 @@ import Portfolio from './user/portfolio/Portfolio';
 const Dashboard = ({ handleLogout, history, activeNavItem }) => {
   return (
     <div>
-      <h1>Dashboard</h1>
       {
         activeNavItem === 'portfolio'
         ? <Portfolio />
@@ -14,6 +13,6 @@ const Dashboard = ({ handleLogout, history, activeNavItem }) => {
       }
     </div>
   );
-}
+};
 
 export default withRouter(Dashboard);

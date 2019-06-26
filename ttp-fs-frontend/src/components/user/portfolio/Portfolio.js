@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Container, Grid, Header } from 'semantic-ui-react';
+import StocksList from './StocksList';
 
 const Portfolio = () => {
   const [stocks, setStocks] = useState([]);
@@ -11,11 +13,14 @@ const Portfolio = () => {
   }, []);
 
   return (
-    <main>
-      <h1>Portfolio</h1>
-      {stocks.map(stock => <h1 key={stock.symbol}>{stock.symbol}</h1>)}
-    </main>
+    <Container>
+      <Header as="h1">Portfolio</Header>
+      <Grid columns={2} padded="vertically">
+        <StocksList stocks={stocks} />
+        <Grid.Column>Buy Form</Grid.Column>
+      </Grid>
+    </Container>
   );
-}
+};
 
 export default Portfolio;

@@ -61,6 +61,6 @@ const Navbar = ({ user, activeNavItem, setActiveNavItem, handleLogout, history, 
         </Menu.Menu>
       </Menu>
     );
-}
+};
 
 export default withRouter(Navbar);

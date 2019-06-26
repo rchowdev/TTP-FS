@@ -71,6 +71,6 @@ const SignUp = ({ handleSuccessfulAuth }) => {
       <button type="submit">Sign Up</button>
     </form>
   );
-}
+};
 
 export default SignUp;
