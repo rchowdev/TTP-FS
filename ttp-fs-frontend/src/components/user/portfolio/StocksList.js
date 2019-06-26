@@ -5,7 +5,7 @@ import Stock from './Stock';
 const StocksList = ({ stocks }) => {
   return (
     <Grid.Column>
-      <List>
+      <List divided verticalAlign="middle" size="massive" relaxed>
         {stocks.map(stock => <Stock key={stock.symbol} stock={stock}/>)}
       </List>
     </Grid.Column>
