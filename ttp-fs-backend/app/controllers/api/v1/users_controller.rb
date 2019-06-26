@@ -18,7 +18,8 @@ class Api::V1::UsersController < ApplicationController
   def buy_stock
     @stock = Stock.find_or_create_by(symbol: buy_stock_params[:symbol])
     @user_stock = UserStock.find_or_create_by(user_id: @current_user.id, stock_id: @stock.id)
-    new_quantity = buy_stock_params[:quantity] + @user_stock.quantity
+    byebug
+    new_quantity = buy_stock_params[:quantity].to_i + @user_stock.quantity
     @user_stock.update(quantity: new_quantity)
     @current_user.update(balance: buy_stock_params[:balance])
 

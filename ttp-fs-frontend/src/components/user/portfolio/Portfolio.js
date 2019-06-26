@@ -7,10 +7,10 @@ import BuyMenu from './BuyMenu';
 const Portfolio = ({ user, setUser }) => {
   const [stocks, setStocks] = useState([]);
 
-  //Set user's stocks 
+  //Set user's stocks
   useEffect(() => {
     axios.get("http://localhost:3001/api/v1/stocks", { withCredentials: true })
-      .then(res => setStocks(res.data))
+      .then(res => setStocks(res.data.sort(stock => stock.quantity)))
       .catch(err => console.log(err));
   }, []);
 
