@@ -14,7 +14,8 @@ const Portfolio = ({ user, setUser }) => {
   }, []);
 
   const updateStocks = (stockInfo) => {
-    console.log("Stock Updated");
+    const filteredStocks = stocks.filter(stock => stock.symbol !== stockInfo.symbol);
+    setStocks([stockInfo, ...filteredStocks]);
   };
 
   return (

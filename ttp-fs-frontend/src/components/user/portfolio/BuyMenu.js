@@ -50,10 +50,11 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
           }
         };
         buyStock(orderData)
-          .then(data => { //Set user, set success to true, set stocks list
+          .then(({ user, symbol, quantity }) => { //Set user, set success to true, set stocks list
             setSuccess(true);
             setIsLoading(false);
-            setUser(data.user);
+            setUser(user);
+            updateStocks({ symbol, quantity });
           })
           .catch(err => console.log(err));
       } else {  //Didn't have enough money
