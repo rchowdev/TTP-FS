@@ -6,6 +6,8 @@ Rails.application.routes.draw do
       get '/logged_in', to: 'sessions#login_status'
       post '/login', to: 'sessions#create'
       delete '/logout', to: 'sessions#destroy'
+
+      resources :stocks, only: [:index]
     end
   end
 end
