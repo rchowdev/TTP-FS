@@ -53,6 +53,8 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
           .then(({ user, symbol, quantity }) => { //Set user, set success to true, set stocks list
             setSuccess(true);
             setIsLoading(false);
+            setTicker("");
+            setQuantity(1);
             setUser(user);
             updateStocks({ symbol, quantity });
           })
