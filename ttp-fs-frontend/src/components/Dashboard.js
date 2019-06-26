@@ -3,12 +3,12 @@ import { withRouter } from 'react-router-dom';
 import TransactionsList from './user/transactions/TransactionsList';
 import Portfolio from './user/portfolio/Portfolio';
 
-const Dashboard = ({ activeNavItem, user }) => {
+const Dashboard = ({ activeNavItem, user, setUser }) => {
   return (
     <div>
       {
         activeNavItem === 'portfolio'
-        ? <Portfolio user={user} />
+        ? <Portfolio user={user} setUser={setUser} />
         : <TransactionsList />
       }
     </div>

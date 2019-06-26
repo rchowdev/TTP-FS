@@ -22,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
     @user_stock.update(quantity: new_quantity)
     @current_user.update(balance: buy_stock_params[:balance])
 
-    render json: { symbol: @stock.symbol, quantity: @user_stock.quantity, balance: @current_user.balance }, status: :ok
+    render json: { symbol: @stock.symbol, quantity: @user_stock.quantity, user: UserSerializer.new(@current_user) }, status: :ok
   end
 
   private

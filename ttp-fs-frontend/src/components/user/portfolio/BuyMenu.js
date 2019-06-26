@@ -3,7 +3,7 @@ import axios from 'axios';
 import currency from 'currency.js';
 import { Form, Grid, Button, Message } from 'semantic-ui-react';
 
-const BuyMenu = ({ formatted_balance }) => {
+const BuyMenu = ({ user, setUser, updateStocks }) => {
   const [ticker, setTicker] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
@@ -21,14 +21,14 @@ const BuyMenu = ({ formatted_balance }) => {
   //If we have enough money return new balance else return negative number
   function newBalance(stockPrice) {
     const total = currency(stockPrice) * quantity;
-    const userBalance = currency(formatted_balance);
+    const userBalance = currency(user.formatted_balance);
     return userBalance > total ? userBalance.subtract(total).value : -1;
   };
 
   //Fetch request to API to patch user's balance and find or create stock
   function buyStock(orderData) {
     return axios.patch("http://localhost:3001/api/v1/buy", orderData, { withCredentials: true })
-      .then(res => console.log(res))
+      .then(res => res.data)
       .catch(err => console.log(err));
   };
 
@@ -49,11 +49,11 @@ const BuyMenu = ({ formatted_balance }) => {
             balance
           }
         };
-        buyStock(orderData) //Set user and set success to true
-          .then(data => {
-            console.log(data);
+        buyStock(orderData)
+          .then(data => { //Set user, set success to true, set stocks list
             setSuccess(true);
             setIsLoading(false);
+            setUser(data.user);
           })
           .catch(err => console.log(err));
       } else {  //Didn't have enough money
