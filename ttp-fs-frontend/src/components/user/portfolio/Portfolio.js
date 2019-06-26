@@ -4,7 +4,7 @@ import { Container, Grid, Header } from 'semantic-ui-react';
 import StocksList from './StocksList';
 import BuyMenu from './BuyMenu';
 
-const Portfolio = () => {
+const Portfolio = ({ user }) => {
   const [stocks, setStocks] = useState([]);
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Portfolio = () => {
       <Header as="h1">Portfolio</Header>
       <Grid centered columns={2} padded="vertically" divided>
         <StocksList stocks={stocks} />
-        <BuyMenu />
+        <BuyMenu balance={user.balance} />
       </Grid>
     </Container>
   );
