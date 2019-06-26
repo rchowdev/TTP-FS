@@ -19,7 +19,7 @@ const Portfolio = ({ user }) => {
       <Header as="h1">Portfolio</Header>
       <Grid centered columns={2} padded="vertically" divided>
         <StocksList stocks={stocks} />
-        <BuyMenu balance={user.balance} />
+        <BuyMenu formatted_balance={user.formatted_balance} />
       </Grid>
     </Container>
   );
