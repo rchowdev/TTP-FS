@@ -17,7 +17,7 @@ const Portfolio = () => {
   return (
     <Container>
       <Header as="h1">Portfolio</Header>
-      <Grid columns={2} padded="vertically">
+      <Grid centered columns={2} padded="vertically" divided>
         <StocksList stocks={stocks} />
         <BuyMenu />
       </Grid>
