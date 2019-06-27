@@ -15,26 +15,27 @@ const StocksList = ({ stocks, setPortfolioValue }) => {
         .catch(err => console.log(err));
     };
 
-    //Helper function to add curr price field to each stock
-    const mapStocksWithCurrPrices = (stocksData) => {
+    //Helper function to add field from IEX API to each stock
+    const addFieldToStocks = (stocksData, field) => {
       return stocks.map(stock => {
         let foundStock = stocksData.find(stockData => stockData.symbol === stock.symbol);
-        return { ...stock, currPrice: foundStock.lastSalePrice };
+        return { ...stock, [field]: foundStock[field] };
       });
     };
 
     //Helper function to calculate portfolio value
     const calculatePortfolioValue = (stocksData) => {
-      return stocksData.reduce((total, stock) => currency(total).add(currency(stock.currPrice) * stock.quantity), 0).value;
+      return stocksData.reduce((total, stock) => currency(total).add(currency(stock.lastSalePrice) * stock.quantity), 0).value;
     }
 
     if(stocks.length) {
       getStockPrices()
         .then(res => {
-          const mappedStocksData = mapStocksWithCurrPrices(res);
-          setStocksIEXData(mappedStocksData);
-          setPortfolioValue(currency(calculatePortfolioValue(mappedStocksData)).format({ formatWithSymbol: true }));
+          const stocksWithLastSalePrice = addFieldToStocks(res, "lastSalePrice");
+          setStocksIEXData(stocksWithLastSalePrice);
+          setPortfolioValue(currency(calculatePortfolioValue(stocksWithLastSalePrice)).format({ formatWithSymbol: true }));
         })
+        .catch(err => console.log(err));
     }
   }, [stocks, setPortfolioValue]);
 
