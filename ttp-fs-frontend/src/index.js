@@ -4,7 +4,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import * as serviceWorker from './serviceWorker';
 
-require('dotenv').config();
+require('dotenv').config()
 
 ReactDOM.render(
   <BrowserRouter>
