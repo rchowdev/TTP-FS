@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       delete '/logout', to: 'sessions#destroy'
 
       resources :stocks, only: [:index]
+      resources :transactions, only: [:index]
     end
   end
 end

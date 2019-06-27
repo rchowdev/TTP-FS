@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_050329) do
   create_table "transactions", force: :cascade do |t|
     t.integer "user_id"
     t.integer "stock_id"
-    t.string "type"
+    t.string "transaction_type"
     t.string "stock_symbol"
     t.integer "quantity"
     t.decimal "price", precision: 10, scale: 2, null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2019_06_27_050329) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.decimal "balance", precision: 8, scale: 2, default: "5000.0"
+    t.decimal "balance", precision: 10, scale: 2, default: "5000.0", null: false
   end
 
 end
