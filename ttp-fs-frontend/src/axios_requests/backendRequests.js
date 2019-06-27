@@ -14,3 +14,10 @@ export function getUserStocks() {
     .then(res => res)
     .catch(err => console.log(err));
 };
+
+//Fetch request to API to get user's transactions
+export function getTransactions() {
+  return axios.get(`${RAILS_API_BASE_URL}/transactions`, { withCredentials: true })
+    .then(res => res.data)
+    .catch(err => console.log(err));
+};
