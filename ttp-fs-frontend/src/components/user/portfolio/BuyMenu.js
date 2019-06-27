@@ -53,7 +53,7 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
     setSuccess(false);  //Reset error and success state
     setError(false);
     setIsLoading(true); //Set loading to true until api request resolves
-    getStockData(ticker)
+    getStockData(ticker, ["symbol","latestPrice"])
     .then(stock => {
       if(verifyTicker(stock) && verifyBalance(stock.latestPrice)){ //Check if ticker is valid, then if we have enough funds
         const { symbol, latestPrice } = stock;

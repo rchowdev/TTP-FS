@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import currency from 'currency.js';
 import { List, Grid } from 'semantic-ui-react';
 import Stock from './Stock';
+import { getStockData } from '../../../axios_requests/iexRequests';
 
 const StocksList = ({ stocks, setPortfolioValue }) => {
   const [stocksIEXData, setStocksIEXData] = useState([]);
 
   useEffect(() => {
-    //Get data of a stock (symbol, open price, latest price)
-    function getStockData(stockSymbol) {
-      return axios.get(`https://cloud.iexapis.com/stable/stock/${stockSymbol}/quote?filter=symbol,open,latestPrice&token=pk_8c68c7a54f834eafb45ce0135219f103`)
-      .then(res => res.data)
-      .catch(err => console.log(err));
-    };
-
     /*
       Helper function to add field from IEX API to each stock
       First arg is array of stocks you want to add field to
@@ -27,16 +20,15 @@ const StocksList = ({ stocks, setPortfolioValue }) => {
       });
     };
 
-    //Helper function to convert stock symbols into URI encoded string for IEX API query
+    //Helper function to convert stocks in array of stock symbols for fetch query
     const stringifyStockSymbols = () => {
-      const stockURIEncodedSymbols = stocks.map(stock => encodeURIComponent(stock.symbol));  //Map stocks to URI encoded symbols
-      return stockURIEncodedSymbols.join(',');
+      return stocks.map(stock => stock.symbol).join(',');
     };
 
     //When component mounts get open price/latest price for each stock from IEX API
     const getStockPrices = () => {
-      const pArr = stringifyStockSymbols().split(",").map( async symbol => {
-        return getStockData(symbol)
+      const pArr = stringifyStockSymbols().split(",").map(symbol => {
+        return getStockData(symbol, ["symbol", "open", "latestPrice"])
           .then(res => res)
           .catch(err => console.log(err));
       });
