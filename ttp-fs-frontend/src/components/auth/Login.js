@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Grid, Header, Form, Button, Segment } from 'semantic-ui-react';
 import axios from 'axios';
 
 const Login = ({ handleSuccessfulAuth }) => {
@@ -29,26 +30,41 @@ const Login = ({ handleSuccessfulAuth }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="email"
-        required
-        name="email"
-        value={email}
-        placeholder="Email"
-        onChange={e => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        required
-        name="password"
-        value={password}
-        placeholder="Password"
-        onChange={e => setPassword(e.target.value)}
-      />
+    <Grid style={{ height: "80vh" }} verticalAlign="middle"  textAlign="center">
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as="h2">Log In</Header>
+        <Form size="large" onSubmit={handleSubmit}>
+          <Segment>
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="E-mail address"
+              required
+              type="email"
+              name="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              placeholder="Password"
+              type="password"
+              required
+              name="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
 
-      <button type="submit">Login</button>
-    </form>
+            <Button positive fluid size="large">
+              Login
+            </Button>
+          </Segment>
+        </Form>
+      </Grid.Column>
+    </Grid>
   );
 };
 

@@ -1,3 +1,3 @@
 class TransactionsSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :transaction_type, :stock_symbol, :quantity, :price
 end

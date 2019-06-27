@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Grid, Form, Header, Segment, Button } from 'semantic-ui-react';
 import axios from 'axios';
 
 const SignUp = ({ handleSuccessfulAuth }) => {
@@ -34,42 +35,59 @@ const SignUp = ({ handleSuccessfulAuth }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        required
-        name="firstName"
-        value={firstName}
-        placeholder="First Name"
-        onChange={e => setFirstName(e.target.value)}
-      />
-      <input
-        type="text"
-        required
-        name="lastName"
-        value={lastName}
-        placeholder="Last Name"
-        onChange={e => setLastName(e.target.value)}
-      />
-      <input
-        type="email"
-        required
-        name="email"
-        value={email}
-        placeholder="Email"
-        onChange={e => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        required
-        name="password"
-        value={password}
-        placeholder="Password"
-        onChange={e => setPassword(e.target.value)}
-      />
+    <Grid style={{ height: "80vh" }} verticalAlign="middle"  textAlign="center">
+      <Grid.Column style={{ maxWidth: 450 }}>
+        <Header as="h2">Sign Up</Header>
+        <Form size="large" onSubmit={handleSubmit}>
+          <Segment>
+            <Form.Input
+              fluid
+              type="text"
+              required
+              name="firstName"
+              value={firstName}
+              placeholder="First name"
+              onChange={e => setFirstName(e.target.value)}
+            />
+            <Form.Input
+              fluid
+              type="text"
+              required
+              name="lastName"
+              value={lastName}
+              placeholder="Last name"
+              onChange={e => setLastName(e.target.value)}
+            />
+            <Form.Input
+              fluid
+              icon="user"
+              iconPosition="left"
+              placeholder="E-mail address"
+              required
+              type="email"
+              name="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+            />
+            <Form.Input
+              fluid
+              icon="lock"
+              iconPosition="left"
+              placeholder="Password"
+              type="password"
+              required
+              name="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
 
-      <button type="submit">Sign Up</button>
-    </form>
+            <Button positive fluid size="large">
+              Sign Up
+            </Button>
+          </Segment>
+        </Form>
+      </Grid.Column>
+    </Grid>
   );
 };
 

@@ -19,6 +19,14 @@ class Api::V1::UsersController < ApplicationController
   def buy_stock
     @stock = Stock.find_or_create_by(symbol: buy_stock_params[:symbol])
     @user_stock = UserStock.find_or_create_by(user_id: @current_user.id, stock_id: @stock.id)
+    #Create Transaction
+    @transaction = Transaction.create(
+      user_id: @current_user.id,
+      stock_id: @stock.id,
+      stock_symbol: @stock.symbol,
+      quantity: buy_stock_params[:quantity],
+      price: buy_stock_params[:latestPrice],
+      transaction_type: "BUY")
     new_quantity = buy_stock_params[:quantity].to_i + @user_stock.quantity
     @user_stock.update(quantity: new_quantity)
     @current_user.update(balance: buy_stock_params[:balance])
@@ -33,6 +41,6 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def buy_stock_params
-    params.require(:orderData).permit(:balance, :symbol, :quantity)
+    params.require(:orderData).permit(:balance, :symbol, :quantity, :latestPrice)
   end
 end
