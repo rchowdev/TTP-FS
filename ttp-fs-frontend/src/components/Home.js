@@ -9,14 +9,13 @@ const Home = ({ handleLogin, history, activeNavItem }) => {
   };
 
   return (
-    <div>
-      <h1>{activeNavItem === "sign-up" ? "Sign Up" : "Log In"}</h1>
+    <React.Fragment>
       {
         activeNavItem === "sign-up"
           ? <SignUp handleSuccessfulAuth={handleSuccessfulAuth} />
           : <Login handleSuccessfulAuth={handleSuccessfulAuth} />
       }
-    </div>
+    </React.Fragment>
   );
 };
 
