@@ -6,6 +6,7 @@ import BuyMenu from './BuyMenu';
 
 const Portfolio = ({ user, setUser }) => {
   const [stocks, setStocks] = useState([]);
+  const [portfolioValue, setPortfolioValue] = useState("");
 
   //Set user's stocks
   useEffect(() => {
@@ -21,9 +22,9 @@ const Portfolio = ({ user, setUser }) => {
 
   return (
     <Container>
-      <Header as="h1">Portfolio</Header>
+      <Header as="h1">{`Portfolio (${portfolioValue})`}</Header>
       <Grid centered columns={2} padded="vertically" divided>
-        <StocksList stocks={stocks} />
+        <StocksList stocks={stocks} setPortfolioValue={setPortfolioValue}/>
         <BuyMenu
           user={user}
           setUser={setUser}
