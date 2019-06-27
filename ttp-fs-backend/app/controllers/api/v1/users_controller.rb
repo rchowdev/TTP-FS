@@ -13,6 +13,7 @@ class Api::V1::UsersController < ApplicationController
 
   #Find or create record for stock
   #Find or create record in join table for user_stock
+  #Create Transaction record
   #Update quantity of user_stock, user balance
   #Return JSON with user's stock info, balance
   def buy_stock
