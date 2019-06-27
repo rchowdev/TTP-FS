@@ -21,7 +21,7 @@ const Portfolio = ({ user, setUser }) => {
   };
 
   return (
-    <Container>
+    <Container style={{ marginTop: "5vh" }}>
       <Header as="h1">{`Portfolio (${portfolioValue})`}</Header>
       <Grid centered columns={2} padded="vertically" divided>
         <StocksList stocks={stocks} setPortfolioValue={setPortfolioValue}/>
