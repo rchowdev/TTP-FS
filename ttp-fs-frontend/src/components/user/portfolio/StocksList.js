@@ -6,11 +6,16 @@ import Stock from './Stock';
 
 const StocksList = ({ stocks, setPortfolioValue }) => {
   const [stocksIEXData, setStocksIEXData] = useState([]);
-  useEffect(() => { //When component mounts check current price from IEX API
-    function getStockPrices() {
-      const stockURIEncodedSymbols = stocks.map(stock => encodeURIComponent(stock.symbol));  //Map stocks to URI encoded symbols
-      const stockSymbolsStr = stockURIEncodedSymbols.join(',');
-      return axios.get(`https://api.iextrading.com/1.0/tops?symbols=${stockSymbolsStr}`)
+  useEffect(() => {
+    function getStockPrices() { //When component mounts check current price from IEX API
+      return axios.get(`https://api.iextrading.com/1.0/tops?symbols=${stringifyStockSymbols()}`)
+        .then(res => res.data)
+        .catch(err => console.log(err));
+    };
+
+    //When component mounts get open price for each stock from IEX API
+    function getStockOpenPrices() {
+      return axios.get(`https://api.iextrading.com/1.0/deep/official-price?symbols=${stringifyStockSymbols()}`)
         .then(res => res.data)
         .catch(err => console.log(err));
     };
@@ -26,14 +31,24 @@ const StocksList = ({ stocks, setPortfolioValue }) => {
     //Helper function to calculate portfolio value
     const calculatePortfolioValue = (stocksData) => {
       return stocksData.reduce((total, stock) => currency(total).add(currency(stock.lastSalePrice) * stock.quantity), 0).value;
+    };
+
+    //Helper function to convert stock symbols into URI encoded string for IEX API query
+    const stringifyStockSymbols = () => {
+      const stockURIEncodedSymbols = stocks.map(stock => encodeURIComponent(stock.symbol));  //Map stocks to URI encoded symbols
+      return stockURIEncodedSymbols.join(',');
     }
 
     if(stocks.length) {
       getStockPrices()
         .then(res => {
-          const stocksWithLastSalePrice = addFieldToStocks(res, "lastSalePrice");
-          setStocksIEXData(stocksWithLastSalePrice);
-          setPortfolioValue(currency(calculatePortfolioValue(stocksWithLastSalePrice)).format({ formatWithSymbol: true }));
+          let updatedStocks = addFieldToStocks(res, "lastSalePrice");
+          // TODO
+          // getStockOpenPrices()
+          //   .then(prices => console.log(prices));
+          //
+          setStocksIEXData(updatedStocks);
+          setPortfolioValue(currency(calculatePortfolioValue(updatedStocks)).format({ formatWithSymbol: true }));
         })
         .catch(err => console.log(err));
     }
