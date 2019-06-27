@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const IEX_API_BASE_URL = "https://cloud.iexapis.com/stable/stock";
-console.log(process.env)
 
 //Gets stock data from IEX API based on filters array
 export function getStockData(ticker, filters) {
