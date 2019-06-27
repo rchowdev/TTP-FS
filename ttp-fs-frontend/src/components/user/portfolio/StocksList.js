@@ -6,6 +6,7 @@ import Stock from './Stock';
 
 const StocksList = ({ stocks, setPortfolioValue }) => {
   const [stocksIEXData, setStocksIEXData] = useState([]);
+
   useEffect(() => {
     //Get data of a stock (symbol, open price, latest price)
     function getStockData(stockSymbol) {
@@ -39,7 +40,7 @@ const StocksList = ({ stocks, setPortfolioValue }) => {
           .then(res => res)
           .catch(err => console.log(err));
       });
-      return Promise.all(pArr)
+      return Promise.all(pArr);
     };
 
     //Helper function to calculate portfolio value
@@ -54,6 +55,7 @@ const StocksList = ({ stocks, setPortfolioValue }) => {
           setStocksIEXData(updatedStocks);
           setPortfolioValue(currency(calculatePortfolioValue(updatedStocks)).format({ formatWithSymbol: true }));
         })
+        .catch(err => console.log(err));
     }
   }, [stocks, setPortfolioValue]);
 

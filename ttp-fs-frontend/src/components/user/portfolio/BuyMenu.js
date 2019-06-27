@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import currency from 'currency.js';
 import { Form, Grid, Button, Message } from 'semantic-ui-react';
+import { getStockData } from '../../../axios_requests/iexRequests';
 
 const BuyMenu = ({ user, setUser, updateStocks }) => {
   const [ticker, setTicker] = useState("");
@@ -10,15 +11,6 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  //Gets stock data from IEX API
-  function getStockData() {
-    const formattedTicker = encodeURIComponent(ticker); //API requires symbols to be URI encoded
-    return axios.get(`https://cloud.iexapis.com/stable/stock/${formattedTicker}/quote?filter=symbol,latestPrice&token=pk_8c68c7a54f834eafb45ce0135219f103
-`)
-      .then(res => res.data)
-      .catch(err => console.log(err));
-  };
 
   //Fetch request to API to patch user's balance and find or create stock
   function buyStock(orderData) {
@@ -61,7 +53,7 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
     setSuccess(false);  //Reset error and success state
     setError(false);
     setIsLoading(true); //Set loading to true until api request resolves
-    getStockData()
+    getStockData(ticker)
     .then(stock => {
       if(verifyTicker(stock) && verifyBalance(stock.latestPrice)){ //Check if ticker is valid, then if we have enough funds
         const { symbol, latestPrice } = stock;
