@@ -30,7 +30,7 @@ const Login = ({ handleSuccessfulAuth }) => {
   };
 
   return (
-    <Grid style={{ height: "90vh" }} verticalAlign="middle"  textAlign="center">
+    <Grid style={{ height: "80vh" }} verticalAlign="middle"  textAlign="center">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2">Log In</Header>
         <Form size="large" onSubmit={handleSubmit}>
