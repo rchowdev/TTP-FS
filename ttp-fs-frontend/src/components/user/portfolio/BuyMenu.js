@@ -3,6 +3,7 @@ import axios from 'axios';
 import currency from 'currency.js';
 import { Form, Grid, Button, Message } from 'semantic-ui-react';
 import { getStockData } from '../../../axios_requests/iexRequests';
+import { buyStock } from '../../../axios_requests/backendRequests';
 
 const BuyMenu = ({ user, setUser, updateStocks }) => {
   const [ticker, setTicker] = useState("");
@@ -11,13 +12,6 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-
-  //Fetch request to API to patch user's balance and find or create stock
-  function buyStock(orderData) {
-    return axios.patch("http://localhost:3001/api/v1/buy", orderData, { withCredentials: true })
-      .then(res => res.data)
-      .catch(err => console.log(err));
-  };
 
   //Calculate new balance: Will be negative if not enough money
   function newBalance(stockPrice) {
