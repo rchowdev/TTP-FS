@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Container, Grid, Header } from 'semantic-ui-react';
 import StocksList from './StocksList';
 import BuyMenu from './BuyMenu';
+import { getUserStocks } from '../../../axios_requests/backendRequests';
 
 const Portfolio = ({ user, setUser }) => {
   const [stocks, setStocks] = useState([]);
@@ -10,7 +10,7 @@ const Portfolio = ({ user, setUser }) => {
 
   //Set user's stocks
   useEffect(() => {
-    axios.get("http://localhost:3001/api/v1/stocks", { withCredentials: true })
+    getUserStocks()
       .then(res => setStocks(res.data.sort((a,b) => b.quantity - a.quantity)))
       .catch(err => console.log(err));
   }, []);

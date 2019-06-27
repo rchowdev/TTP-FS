@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import currency from 'currency.js';
 import { Form, Grid, Button, Message } from 'semantic-ui-react';
 import { getStockData } from '../../../axios_requests/iexRequests';
