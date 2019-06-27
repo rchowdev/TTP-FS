@@ -59,6 +59,7 @@ function App({ history }) {
               ? <Dashboard
                   {...props}
                   user={user}
+                  setUser={setUser}
                   activeNavItem={activeNavItem}
                 />
               : <Redirect to="/" />

@@ -1,19 +1,18 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import TransactionsList from './user/TransactionsList';
-import Portfolio from './user/Portfolio';
+import TransactionsList from './user/transactions/TransactionsList';
+import Portfolio from './user/portfolio/Portfolio';
 
-const Dashboard = ({ handleLogout, history, activeNavItem }) => {
+const Dashboard = ({ activeNavItem, user, setUser }) => {
   return (
     <div>
-      <h1>Dashboard</h1>
       {
         activeNavItem === 'portfolio'
-        ? <Portfolio />
+        ? <Portfolio user={user} setUser={setUser} />
         : <TransactionsList />
       }
     </div>
   );
-}
+};
 
 export default withRouter(Dashboard);

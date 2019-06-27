@@ -18,6 +18,6 @@ const Home = ({ handleLogin, history, activeNavItem }) => {
       }
     </div>
   );
-}
+};
 
 export default Home;
