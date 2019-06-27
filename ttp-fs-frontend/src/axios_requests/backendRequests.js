@@ -27,4 +27,11 @@ export function postLogin(logInData) {
   return axios.post("http://localhost:3001/api/v1/login", logInData, { withCredentials: true }) // Tells API it's ok to set cookie in our client
     .then(res => res)
     .catch(err => console.log(err));
-}
+};
+
+//Sign Up
+export function postUser(signUpData) {
+  return axios.post("http://localhost:3001/api/v1/users", signUpData, { withCredentials: true })
+    .then(res => res)
+    .catch(err => console.log(err));
+};

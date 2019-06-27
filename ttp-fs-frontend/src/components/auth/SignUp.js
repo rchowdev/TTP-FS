@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Grid, Form, Header, Segment, Button } from 'semantic-ui-react';
-import axios from 'axios';
+import { postUser } from '../../axios_requests/backendRequests';
 
 const SignUp = ({ handleSuccessfulAuth }) => {
   const [firstName, setFirstName] = useState("");
@@ -20,7 +20,7 @@ const SignUp = ({ handleSuccessfulAuth }) => {
     };
 
     //Send post request to sign up(create new user)
-    axios.post("http://localhost:3001/api/v1/users", signUpData, { withCredentials: true }) // Tells API it's ok to set cookie in our client
+    postUser(signUpData)
       .then(res => {
         if(res.data.user){
           handleSuccessfulAuth(res.data.user);
