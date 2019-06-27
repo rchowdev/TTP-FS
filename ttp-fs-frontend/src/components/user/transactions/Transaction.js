@@ -1,8 +1,11 @@
 import React from 'react';
+import { List } from 'semantic-ui-react';
 
 const Transaction = ({ transaction: { price } }) => {
   return(
-    <h1>{price}</h1>
+    <List.Item>
+      
+    </List.Item>
   );
 };
 
