@@ -14,7 +14,8 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
   //Gets stock data from IEX API
   function getStockData() {
     const formattedTicker = encodeURIComponent(ticker); //API requires symbols to be URI encoded
-    return axios.get(`https://api.iextrading.com/1.0/tops?symbols=${formattedTicker}`)
+    return axios.get(`https://cloud.iexapis.com/stable/stock/${formattedTicker}/quote?filter=symbol,latestPrice&token=pk_8c68c7a54f834eafb45ce0135219f103
+`)
       .then(res => res.data)
       .catch(err => console.log(err));
   };
@@ -44,8 +45,8 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
   };
 
   //Verify if we got a response from IEX API (Check if ticker was valid)
-  function verifyTicker(stocks) {
-    if(!stocks.length){
+  function verifyTicker(stock) {
+    if(!stock){
       setErrorMessage("Invalid Ticker");
       return false;
     }
@@ -61,15 +62,16 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
     setError(false);
     setIsLoading(true); //Set loading to true until api request resolves
     getStockData()
-    .then(stocks => {
-      if(verifyTicker(stocks) && verifyBalance(stocks[0].lastSalePrice)){ //Check if ticker is valid, then if we have enough funds
-        const { symbol, lastSalePrice } = stocks[0];
-        const balance = newBalance(lastSalePrice);
+    .then(stock => {
+      if(verifyTicker(stock) && verifyBalance(stock.latestPrice)){ //Check if ticker is valid, then if we have enough funds
+        const { symbol, latestPrice } = stock;
+        const balance = newBalance(latestPrice);
         const orderData = {
           orderData: {
             symbol,
             quantity,
-            balance
+            balance,
+            latestPrice
           }
         };
         buyStock(orderData)
