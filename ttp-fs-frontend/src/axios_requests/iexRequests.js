@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const IEX_API_BASE_URL = "https://cloud.iexapis.com/stable/stock";
-const IEX_API_PUBLIC_KEY = "pk_8c68c7a54f834eafb45ce0135219f103";
 
 //Gets stock data from IEX API based on filters array
 export function getStockData(ticker, filters) {
