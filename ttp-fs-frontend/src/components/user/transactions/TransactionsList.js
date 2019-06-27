@@ -19,9 +19,9 @@ const TransactionsList = () => {
 
   return (
     <Grid style={{ height: "90vh"}} container padded columns={1} relaxed centered>
-      <Grid.Column style={{ marginTop: "5vh", marginLeft: "5vw" }}>
+      <Grid.Column style={{ marginTop: "5vh", marginRight: "40%" }}>
         <Header as="h1">Transactions</Header>
-        <List divided>
+        <List size="massive" divided>
           {transactions.map((transaction, index) => <Transaction key={index} transaction={transaction} />)}
         </List>
       </Grid.Column>
