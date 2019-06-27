@@ -18,7 +18,7 @@ const TransactionsList = () => {
   }, []);
 
   return (
-    <Grid style={{ height: "90vh"}} container padded columns={1} relaxed centered>
+    <Grid style={{ height: "90vh"}} container columns={1}>
       <Grid.Column style={{ marginTop: "5vh", marginRight: "40%" }}>
         <Header as="h1">Transactions</Header>
         <List size="massive" divided>
