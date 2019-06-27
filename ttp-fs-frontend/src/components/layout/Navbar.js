@@ -1,7 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { Menu, Button } from 'semantic-ui-react';
-import axios from 'axios';
+import { deleteSession } from '../../axios_requests/backendRequests';
 
 const Navbar = ({ user, activeNavItem, setActiveNavItem, handleLogout, history, match }) => {
   const handleItemClick = (e, { name }) => {
@@ -9,7 +9,7 @@ const Navbar = ({ user, activeNavItem, setActiveNavItem, handleLogout, history, 
   };
 
   const handleLogoutClick = () => {
-    axios.delete("http://localhost:3001/api/v1/logout", { withCredentials: true })
+    deleteSession()
       .then(res => {
         handleLogout();
         history.push("/");
