@@ -21,3 +21,10 @@ export function getTransactions() {
     .then(res => res.data)
     .catch(err => console.log(err));
 };
+
+//Login
+export function postLogin(logInData) {
+  return axios.post("http://localhost:3001/api/v1/login", logInData, { withCredentials: true }) // Tells API it's ok to set cookie in our client
+    .then(res => res)
+    .catch(err => console.log(err));
+}
