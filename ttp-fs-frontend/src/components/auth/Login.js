@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Grid, Header, Form, Button, Segment } from 'semantic-ui-react';
+import { Grid, Header, Form, Button, Segment, Message } from 'semantic-ui-react';
 import { postLogin } from '../../axios_requests/backendRequests';
 
 const Login = ({ handleSuccessfulAuth }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -17,12 +19,15 @@ const Login = ({ handleSuccessfulAuth }) => {
 
     //Send post request to login
     postLogin(logInData)
-      .then(res => {
-        if(res.data.user){
-          handleSuccessfulAuth(res.data.user);
+      .then(data => {
+        if(data.user){
+          setError(false);
+          handleSuccessfulAuth(data.user);
+        } else {
+          setError(true);
+          setErrorMessage(data.error);
         }
-      })
-      .catch(err => console.log(err));
+      });
 
     //Reset input fields
     setEmail("");
@@ -33,7 +38,8 @@ const Login = ({ handleSuccessfulAuth }) => {
     <Grid style={{ height: "80vh" }} verticalAlign="middle"  textAlign="center">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2">Log In</Header>
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form error={error} size="large" onSubmit={handleSubmit}>
+          <Message error>{errorMessage}</Message>
           <Segment>
             <Form.Input
               fluid
