@@ -32,8 +32,8 @@ export function postLogin(logInData) {
 //Sign Up
 export function postUser(signUpData) {
   return axios.post("http://localhost:3001/api/v1/users", signUpData, { withCredentials: true })
-    .then(res => res)
-    .catch(err => console.log(err));
+    .then(res => res.data)
+    .catch(err => err.response.data);
 };
 
 //Log Out
