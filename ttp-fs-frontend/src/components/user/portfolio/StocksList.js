@@ -66,6 +66,7 @@ const StocksList = ({ stocks, setPortfolioValue }) => {
         size={listSize}
         relaxed
         onUpdate={handleListUpdate}
+        fireOnMount
       >
         {
           stocksIEXData.length
