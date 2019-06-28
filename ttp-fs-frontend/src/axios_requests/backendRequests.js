@@ -25,15 +25,15 @@ export function getTransactions() {
 //Log In
 export function postLogin(logInData) {
   return axios.post("http://localhost:3001/api/v1/login", logInData, { withCredentials: true }) // Tells API it's ok to set cookie in our client
-    .then(res => res)
-    .catch(err => console.log(err));
+    .then(res => res.data)
+    .catch(err => err.response.data);
 };
 
 //Sign Up
 export function postUser(signUpData) {
   return axios.post("http://localhost:3001/api/v1/users", signUpData, { withCredentials: true })
-    .then(res => res)
-    .catch(err => console.log(err));
+    .then(res => res.data)
+    .catch(err => err.response.data);
 };
 
 //Log Out

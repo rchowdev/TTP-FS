@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Grid, Form, Header, Segment, Button } from 'semantic-ui-react';
+import { Grid, Form, Header, Segment, Button, Message } from 'semantic-ui-react';
 import { postUser } from '../../axios_requests/backendRequests';
 
 const SignUp = ({ handleSuccessfulAuth }) => {
@@ -7,6 +7,8 @@ const SignUp = ({ handleSuccessfulAuth }) => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -21,12 +23,15 @@ const SignUp = ({ handleSuccessfulAuth }) => {
 
     //Send post request to sign up(create new user)
     postUser(signUpData)
-      .then(res => {
-        if(res.data.user){
-          handleSuccessfulAuth(res.data.user);
+      .then(data => {
+        if(data.user){
+          setError(false);
+          handleSuccessfulAuth(data.user);
+        } else {
+          setError(true);
+          setErrorMessage(data.error);
         }
-      })
-      .catch(err => console.log(err));
+      });
 
     setFirstName("");
     setLastName("");
@@ -38,7 +43,8 @@ const SignUp = ({ handleSuccessfulAuth }) => {
     <Grid style={{ height: "80vh" }} verticalAlign="middle"  textAlign="center">
       <Grid.Column style={{ maxWidth: 450 }}>
         <Header as="h2">Sign Up</Header>
-        <Form size="large" onSubmit={handleSubmit}>
+        <Form error={error} size="large" onSubmit={handleSubmit}>
+          <Message error>{errorMessage}</Message>
           <Segment>
             <Form.Input
               fluid

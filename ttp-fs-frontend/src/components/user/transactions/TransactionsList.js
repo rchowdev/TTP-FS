@@ -15,7 +15,7 @@ const TransactionsList = () => {
     <Grid style={{ height: "90vh"}} container columns={1}>
       <Grid.Column style={{ marginTop: "5vh", marginRight: "40%" }}>
         <Header as="h1">Transactions</Header>
-        <List size="massive" divided>
+        <List size="massive" divided relaxed>
           {transactions.map((transaction, index) => <Transaction key={index} transaction={transaction} />)}
         </List>
       </Grid.Column>

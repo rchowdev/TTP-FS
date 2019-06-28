@@ -31,8 +31,8 @@ const BuyMenu = ({ user, setUser, updateStocks }) => {
 
   //Verify if we got a response from IEX API (Check if ticker was valid)
   function verifyTicker(stock) {
-    if(!stock){
-      setErrorMessage("Invalid Ticker");
+    if(!stock.symbol){
+      setErrorMessage(stock);
       return false;
     }
     return true;
