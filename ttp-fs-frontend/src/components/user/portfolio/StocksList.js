@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import currency from 'currency.js';
-import { List, Grid } from 'semantic-ui-react';
+import { List, Grid, Responsive } from 'semantic-ui-react';
 import Stock from './Stock';
 import { getStockData } from '../../../axios_requests/iexRequests';
 
 const StocksList = ({ stocks, setPortfolioValue }) => {
   const [stocksIEXData, setStocksIEXData] = useState([]);
+  const [listSize, setListSize] = useState("massive");
 
   useEffect(() => {
     /*
@@ -52,15 +53,26 @@ const StocksList = ({ stocks, setPortfolioValue }) => {
   }, [stocks, setPortfolioValue]);
 
 
+  const handleListUpdate = (e, data) => {
+    data.getWidth() < 600 ? setListSize("small") : setListSize("massive");
+  };
+
   return (
     <Grid.Column>
-      <List divided verticalAlign="middle" size="massive" relaxed>
+      <Responsive
+        as={List}
+        divided
+        verticalAlign="middle"
+        size={listSize}
+        relaxed
+        onUpdate={handleListUpdate}
+      >
         {
           stocksIEXData.length
             ? stocksIEXData.map(stock => <Stock key={stock.symbol} stock={stock}/>)
             : []
         }
-      </List>
+      </Responsive>
     </Grid.Column>
   );
 };
